@@ -58,3 +58,25 @@ predicted_class = max(scores, key=scores.get)
 print("Predicted class:", predicted_class)
 
 
+
+
+
+
+def get_or_load_features(paths, save_path):
+    if os.path.exists(save_path):
+        return torch.load(save_path)
+    else:
+        features = get_image_features(paths)
+        torch.save(features, save_path)
+        return features
+
+mcafee_logos = get_or_load_features(
+    ["/content/mcafee-removebg-preview.png", "/content/mcafee_ver-removebg-preview.png"],
+    "mcafee_logos.pt"
+)
+
+mcafee_shield_logos = get_or_load_features(
+    ["/content/Screenshot_2025-04-05_212545-removebg-preview.png"],
+    "mcafee_shield_logos.pt"
+)
+
